@@ -1,15 +1,20 @@
 CREATE TABLE responses (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    endpoint_id INTEGER NOT NULL REFERENCES endpoints(id),
+    endpoint_id INTEGER NOT NULL,
     status_code INTEGER NOT NULL,
+    latency_ms REAL NOT NULL,
+    timestamp DATETIME NOT NULL,
+    total_hits INTEGER NOT NULL DEFAULT 1,
+    avg_latency REAL NOT NULL,
+    last_updated DATETIME NOT NULL,
+    body_size INTEGER NOT NULL,
+    body_size_min INTEGER NOT NULL,
+    body_size_max INTEGER NOT NULL,
     content_type TEXT,
-    avg_size INTEGER DEFAULT 0,    -- in bytes
-    avg_latency_ms REAL DEFAULT 0.0,
-    error_ratio REAL DEFAULT 0.0,  -- % of 4xx/5xx
-    first_seen TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    last_seen TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    FOREIGN KEY(endpoint_id) REFERENCES endpoints(id),
-    UNIQUE(endpoint_id, status_code)
+    error_ratio REAL NOT NULL DEFAULT 0,
+    UNIQUE(endpoint_id, status_code),
+    FOREIGN KEY(endpoint_id) REFERENCES endpoints(id)
 );
+
 
 //CREATE INDEX idx_responses_endpoint_status ON responses (endpoint_id, status_code);
