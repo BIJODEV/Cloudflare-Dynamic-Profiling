@@ -17,7 +17,7 @@ CREATE TABLE field_metadata (
   avg_length REAL NOT NULL DEFAULT 0.0,
   entropy_score REAL NOT NULL DEFAULT 0.0,
   FOREIGN KEY (endpoint_id) REFERENCES endpoints(id),
-  UNIQUE(endpoint_id, field_name)            -- matches your WHERE endpoint_id & name
+  UNIQUE(endpoint_id, field_name, field_source)            -- matches your WHERE endpoint_id & name
 );
 
 CREATE INDEX idx_field_metadata_endpoint ON field_metadata (endpoint_id);
