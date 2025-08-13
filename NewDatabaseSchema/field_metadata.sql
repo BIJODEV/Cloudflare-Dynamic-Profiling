@@ -8,6 +8,7 @@ CREATE TABLE field_metadata (
     avg_entropy REAL DEFAULT 0.0,
     is_sensitive BOOLEAN DEFAULT 0,  -- e.g., password, token
     last_seen TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (endpoint_id) REFERENCES endpoints(id)
     UNIQUE(endpoint_id, field_name, field_location) -- Avoid duplicates for same field
 );
 
