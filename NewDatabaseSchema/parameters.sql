@@ -7,6 +7,7 @@ CREATE TABLE parameters (
     avg_length REAL DEFAULT 0.0,
     avg_entropy REAL DEFAULT 0.0,
     last_seen TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (endpoint_id) REFERENCES endpoints(id)
     UNIQUE(endpoint_id, param_name, param_location) -- Avoid duplicates
 );
 
